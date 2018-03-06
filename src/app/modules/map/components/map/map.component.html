@@ -1,0 +1,14 @@
+<ac-map>
+  <ac-layer acFor="let track of tracks$"
+            [show]="true" [context]="this" [store]="true">
+    <ac-billboard-desc props="{
+      image: track.image,
+      position: track.position,
+      color: getTextColor(),
+      scale: 0.1,
+      name: track.callsign,
+      rotation: -track.heading
+    }">
+    </ac-billboard-desc>
+  </ac-layer>
+</ac-map>
