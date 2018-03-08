@@ -2,11 +2,11 @@
   "name": "ground-zero",
   "version": "0.0.1",
   "license": "MIT",
+  "private": true,
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve --port 5000"
+    "start": "ng serve --port 4400"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "5.1.0",
     "@angular/cdk": "5.0.1",
@@ -29,9 +29,9 @@
     "@angular/compiler-cli": "5.1.0",
     "@angular/language-service": "5.1.0",
     "@types/node": "^6.0.42",
-    "codelyzer": "~2.0.0-beta.1",
+    "codelyzer": "^4.2.1",
     "ts-node": "3.3.0",
     "tslint": "5.8.0",
-    "typescript": "2.5.1"
+    "typescript": "2.5.3"
   }
 }

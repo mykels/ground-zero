@@ -1,14 +1,63 @@
-<ac-map>
-  <ac-layer acFor="let track of tracks$"
+<ac-map [flyTo]="homeLocation" [sceneMode]="defaultSceneMode">
+  <ac-layer acFor="let entity of entities$"
             [show]="true" [context]="this" [store]="true">
+    <ac-map-layer-provider [provider]="mapProvider">
+    </ac-map-layer-provider>
     <ac-billboard-desc props="{
-      image: track.image,
-      position: track.position,
-      color: getTextColor(),
-      scale: 0.1,
-      name: track.callsign,
-      rotation: -track.heading
+      image: entity.image,
+      position: entity.position,
+      scale: 0.6,
+      name: entity.id,
+      rotation: -entity.heading
     }">
     </ac-billboard-desc>
+    <ac-label-primitive-desc props="{
+       position: entity.position,
+       pixelOffset : [-15,20] | pixelOffset,
+       text: entity.id,
+       font: '15px sans-serif'
+     }">
+      *
+    </ac-label-primitive-desc>
+    <ac-label-primitive-desc props="{
+       position: entity.position,
+       pixelOffset : [-17,22] | pixelOffset,
+       text: '*1',
+       font: '15px sans-serif'
+     }">
+      *
+    </ac-label-primitive-desc>
+    <ac-label-primitive-desc props="{
+       position: entity.position,
+       pixelOffset : [-19,24] | pixelOffset,
+       text: '*2',
+       font: '15px sans-serif'
+     }">
+      *
+    </ac-label-primitive-desc>
+    <ac-label-primitive-desc props="{
+       position: entity.position,
+       pixelOffset : [0,20] | pixelOffset,
+       text: '*3',
+       font: '15px sans-serif'
+     }">
+      *
+    </ac-label-primitive-desc>
+    <ac-label-primitive-desc props="{
+       position: entity.position,
+       pixelOffset : [10,20] | pixelOffset,
+       text: '*4',
+       font: '15px sans-serif'
+     }">
+    *
+  </ac-label-primitive-desc>
+    <ac-label-primitive-desc props="{
+       position: entity.position,
+       pixelOffset : [15,30] | pixelOffset,
+       text: '*5',
+       font: '15px sans-serif'
+     }">
+      *
+    </ac-label-primitive-desc>
   </ac-layer>
 </ac-map>

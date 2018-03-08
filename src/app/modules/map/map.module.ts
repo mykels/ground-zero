@@ -1,14 +1,17 @@
 import {NgModule} from '@angular/core';
-import {MapComponent} from './components/map/map.component';
 import {MapRoutingModule} from './map.module.routing';
-import {AngularCesiumModule, AngularCesiumWidgetsModule} from 'angular-cesium';
+import {AngularCesiumModule} from 'angular-cesium';
+import {MAP_SERVICES} from './services';
+import {MAP_COMPONENTS} from './components';
 
 @NgModule({
   imports: [
     MapRoutingModule,
     AngularCesiumModule.forRoot()
   ],
-  declarations: [MapComponent]
+  declarations: [...MAP_COMPONENTS],
+  providers: [...MAP_SERVICES],
+  exports: []
 })
 export class MapModule {
 }

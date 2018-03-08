@@ -2,7 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CoreRoutingModule} from './core.routing';
 import {MatToolbarModule} from '@angular/material';
-import {NavbarComponent} from './components/navbar/navbar.component';
+import {CORE_COMPONENTS} from './components';
+import {CORE_SERVICES} from './services';
 
 @NgModule({
   imports: [
@@ -10,12 +11,14 @@ import {NavbarComponent} from './components/navbar/navbar.component';
     MatToolbarModule,
   ],
   declarations: [
-    NavbarComponent
+    ...CORE_COMPONENTS
   ],
-  providers: [],
+  providers: [
+    ...CORE_SERVICES
+  ],
   exports: [
     RouterModule,
-    NavbarComponent
+    ...CORE_COMPONENTS
   ]
 })
 export class CoreModule {
