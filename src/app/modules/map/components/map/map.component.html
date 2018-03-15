@@ -13,51 +13,24 @@
     </ac-billboard-desc>
     <ac-label-primitive-desc props="{
        position: entity.position,
-       pixelOffset : [-15,20] | pixelOffset,
+       pixelOffset : [-25,30] | pixelOffset,
        text: entity.id,
-       font: '15px sans-serif'
+       font: '18px sans-serif'
      }">
-      *
     </ac-label-primitive-desc>
     <ac-label-primitive-desc props="{
        position: entity.position,
-       pixelOffset : [-17,22] | pixelOffset,
-       text: '*1',
-       font: '15px sans-serif'
+       pixelOffset : [0,-30] | pixelOffset,
+       text: entity.alt.toString(),
+       font: '20px sans-serif'
      }">
-      *
     </ac-label-primitive-desc>
-    <ac-label-primitive-desc props="{
-       position: entity.position,
-       pixelOffset : [-19,24] | pixelOffset,
-       text: '*2',
-       font: '15px sans-serif'
-     }">
-      *
-    </ac-label-primitive-desc>
-    <ac-label-primitive-desc props="{
-       position: entity.position,
-       pixelOffset : [0,20] | pixelOffset,
-       text: '*3',
-       font: '15px sans-serif'
-     }">
-      *
-    </ac-label-primitive-desc>
-    <ac-label-primitive-desc props="{
-       position: entity.position,
-       pixelOffset : [10,20] | pixelOffset,
-       text: '*4',
-       font: '15px sans-serif'
-     }">
-    *
-  </ac-label-primitive-desc>
-    <ac-label-primitive-desc props="{
-       position: entity.position,
-       pixelOffset : [15,30] | pixelOffset,
-       text: '*5',
-       font: '15px sans-serif'
-     }">
-      *
-    </ac-label-primitive-desc>
+    <ac-polyline-desc props="{
+        width : entity.historyTail.width,
+        positions: entity.historyTail.positions,
+        material: entity.historyTail.material,
+        distanceDisplayCondition: entity.displayCondition
+    }">
+    </ac-polyline-desc>
   </ac-layer>
 </ac-map>

@@ -27,9 +27,10 @@ export class EntityGenerator {
 
   generatePosition(anchorPosition: any, distance = 1) {
     return {
-      lat: anchorPosition.lat + getSign() * (Math.random() * distance),
-      long: anchorPosition.long + getSign() * (Math.random() * distance),
-      alt: anchorPosition.alt + getSign() * (Math.random() * 10)
+      lat: anchorPosition.lat + (Math.random() * distance),
+      long: anchorPosition.long + (Math.random() * distance),
+      alt: Math.floor(anchorPosition.alt + getSign() * (Math.random() * 10))
     };
   }
+
 }

@@ -7,6 +7,11 @@ import {EntityGenerator} from './entity-generator.service';
 
 const getSign = () => Math.round(Math.random()) * 2 - 1;
 
+const redMaterial = Cesium.Material.fromType(Cesium.Material.PolylineGlowType, {
+  glowPower: 0.05,
+  color: Cesium.Color.RED
+});
+
 @Injectable()
 export class EntitySimulator {
   private entities: Entity[];
@@ -34,8 +39,14 @@ export class EntitySimulator {
         entity.heading += getSign() * 2;
         entity.position = this.entityGenerator.generatePosition(entity.position, 0.3);
 
+        if (!entity.historyPositions) {
+          entity.historyPositions = [];
+        }
+
+        entity.historyPositions.push(entity.position);
+
         this.entitySubject.next(this.entityToNotification(entity));
-      }, 10);
+      }, 2000);
     });
   }
 
@@ -46,9 +57,14 @@ export class EntitySimulator {
       entity: {
         id: entity.id,
         image: '/assets/images/fighter-jet.png',
-        alt: entity.position.altitue,
+        alt: entity.position.alt,
         heading: entity.heading,
-        position: entity.position
+        position: entity.position,
+        historyTail: {
+          width: 2,
+          positions: entity.historyPositions,
+          material: redMaterial
+        }
       }
     }
   }

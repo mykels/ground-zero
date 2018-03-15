@@ -16,7 +16,7 @@ export class EntityDistributor {
   }
 
   init() {
-    const entityCount = 10000;
+    const entityCount = 50;
     const anchorPosition = {
       lat: 32.085299899999995,
       long: 34.78176759999997,
