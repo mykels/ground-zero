@@ -18,6 +18,7 @@
     "@angular/platform-browser": "5.1.0",
     "@angular/platform-browser-dynamic": "5.1.0",
     "@angular/router": "5.1.0",
+    "@ngrx/store": "^5.2.0",
     "angular-cesium": "^0.0.48",
     "cesium": "^1.43.0",
     "core-js": "2.5.3",

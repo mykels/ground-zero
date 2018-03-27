@@ -1,8 +1,6 @@
 <ac-map [flyTo]="homeLocation" [sceneMode]="defaultSceneMode">
   <ac-layer acFor="let entity of entities$"
             [show]="true" [context]="this" [store]="true">
-    <ac-map-layer-provider [provider]="mapProvider">
-    </ac-map-layer-provider>
     <ac-billboard-desc props="{
       image: entity.image,
       position: entity.position,
