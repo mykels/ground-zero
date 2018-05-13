@@ -1,5 +1,5 @@
 import {MapComponent} from './map/map.component';
 
-export const MAP_COMPONENTS = [
+export const AC_MAP_COMPONENTS = [
   MapComponent
 ];

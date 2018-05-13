@@ -1,0 +1,23 @@
+<ac-map [flyTo]="homeLocation" [sceneMode]="defaultSceneMode">
+  <ac-map-layer-provider [options]="{}" [provider]="defaultProvider">
+  </ac-map-layer-provider>
+  <ac-layer acFor="let entity of entities$"
+            [show]="true" [context]="this" [store]="true">
+    <ac-billboard-desc props="{
+      image: entity.image,
+      position: entity.position,
+      color: entity.color
+      scale: entity.scale,
+      name: entity.id,
+      rotation: degreesToRadians(entity.heading)
+    }">
+    </ac-billboard-desc>
+    <ac-label-primitive-desc props="{
+       position: entity.position,
+       pixelOffset : [-25,30] | pixelOffset,
+       text: entity.rotation.toString(),
+       font: '18px sans-serif'
+     }">
+    </ac-label-primitive-desc>
+  </ac-layer>
+</ac-map>

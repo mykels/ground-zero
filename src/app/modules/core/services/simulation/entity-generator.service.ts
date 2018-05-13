@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Entity} from '../../types/entity';
+import {Position} from '../../types/position';
 
 const getSign = () => Math.round(Math.random()) * 2 - 1;
 
 @Injectable()
 export class EntityGenerator {
 
-  generateEntities(entityCount: number, anchorPosition: any): Entity[] {
+  generateEntities(entityCount: number, anchorPosition: Position): Entity[] {
     const entities: Entity[] = [];
 
     for (let i = 0; i < entityCount; i++) {
-      entities.push(this.generateEntity(`entity_${i}`, anchorPosition));
+      const generatedEntity = this.generateEntity(`entity_${i}`, anchorPosition);
+      entities.push(generatedEntity);
     }
 
     return entities;
@@ -19,17 +21,16 @@ export class EntityGenerator {
   generateEntity(id: string, anchorPosition: any): Entity {
     return {
       id,
-      position: this.generatePosition(anchorPosition, 20),
-      heading: 90,
-      image: '/assets/images/fighter-jet.png',
+      position: this.generatePosition(anchorPosition, 2),
+      heading: Math.random()
     }
   }
 
-  generatePosition(anchorPosition: any, distance = 1) {
+  generatePosition(anchorPosition: Position, distance = 1): Position {
     return {
-      lat: anchorPosition.lat + (Math.random() * distance),
-      long: anchorPosition.long + (Math.random() * distance),
-      alt: Math.floor(anchorPosition.alt + getSign() * (Math.random() * 10))
+      lat: anchorPosition.lat + getSign() * (Math.random() * distance),
+      lon: anchorPosition.lon + getSign() * (Math.random() * distance),
+      alt: 0
     };
   }
 

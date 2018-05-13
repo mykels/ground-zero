@@ -8,12 +8,12 @@ const routes: Routes = [
     component: MasterComponent,
     children: [
       {
-        path: 'map',
-        loadChildren: 'app/modules/map/map.module#MapModule',
+        path: 'acMap',
+        loadChildren: 'app/modules/ac-map/ac-map.module#AcMapModule',
       },
       {
         path: '',
-        redirectTo: 'map',
+        redirectTo: 'acMap',
         pathMatch: 'full'
       }
     ]

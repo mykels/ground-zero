@@ -1,71 +1,45 @@
 import {Injectable} from '@angular/core';
 import {Entity} from '../../types/entity';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {AcNotification, ActionType} from 'angular-cesium';
 import {EntityGenerator} from './entity-generator.service';
+import {AppState} from '../../../store/store';
+import {Store} from '@ngrx/store';
+import {SimulationOptions} from '../../types/simulation/simulation-options';
+import {AddEntityAction, UpdateEntityAction} from '../../../store/entities/entities.actions';
+import 'rxjs/add/operator/take';
 
 const getSign = () => Math.round(Math.random()) * 2 - 1;
 
-const redMaterial = Cesium.Material.fromType(Cesium.Material.PolylineGlowType, {
-  glowPower: 0.05,
-  color: Cesium.Color.RED
-});
-
 @Injectable()
 export class EntitySimulator {
-  private entities: Entity[];
-  private entitySubject: Subject<AcNotification> = new Subject<AcNotification>();
-
-  constructor(private entityGenerator: EntityGenerator) {
+  constructor(private entityGenerator: EntityGenerator,
+              private store: Store<AppState>) {
 
   }
 
-  simulate(entities: Entity[]): Observable<AcNotification> {
-    this.entities = entities;
-
-    this.entities.forEach(entity => {
-      this.entitySubject.next(this.entityToNotification(entity));
-    });
-
+  simulate(options: SimulationOptions): void {
+    this.initInitialEntities(options);
     this.simulateUpdates();
-
-    return this.entitySubject;
   }
 
   simulateUpdates() {
-    this.entities.forEach(entity => {
-      setInterval(() => {
-        entity.heading += getSign() * 2;
-        entity.position = this.entityGenerator.generatePosition(entity.position, 0.3);
-
-        if (!entity.historyPositions) {
-          entity.historyPositions = [];
-        }
-
-        entity.historyPositions.push(entity.position);
-
-        this.entitySubject.next(this.entityToNotification(entity));
-      }, 2000);
-    });
+    this.store.select('entities')
+      .take(1)
+      .subscribe(entities => {
+        entities.forEach(entity => {
+          setInterval(() => {
+            entity.heading += getSign() * 2;
+            entity.position = this.entityGenerator.generatePosition(entity.position, 0.3);
+            this.store.dispatch(new UpdateEntityAction(entity));
+          }, 1000);
+        });
+      });
   }
 
-  entityToNotification(entity: Entity) {
-    return {
-      id: entity.id,
-      actionType: ActionType.ADD_UPDATE,
-      entity: {
-        id: entity.id,
-        image: '/assets/images/fighter-jet.png',
-        alt: entity.position.alt,
-        heading: entity.heading,
-        position: entity.position,
-        historyTail: {
-          width: 2,
-          positions: entity.historyPositions,
-          material: redMaterial
-        }
-      }
-    }
+  private initInitialEntities(options: SimulationOptions) {
+    const entities: Entity[] = this.entityGenerator.generateEntities(options.entityCount, options.anchorPosition);
+
+    entities.forEach(entity => {
+      this.store.dispatch(new AddEntityAction(entity));
+    });
   }
 }

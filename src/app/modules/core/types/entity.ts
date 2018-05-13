@@ -1,7 +1,7 @@
+import {Position} from './position';
+
 export interface Entity {
   id: string,
-  position: any,
+  position: Position,
   heading: number,
-  image: string,
-  historyPositions?: any[]
 }
