@@ -6,10 +6,10 @@ export class MapEntityBuilder {
   build(entity: any): MapEntity {
     return {
       id: entity.id,
-      position: Cesium.Cartesian3.fromDegrees(entity.position.lon, entity.position.lon, entity.position.alt),
+      position: Cesium.Cartesian3.fromDegrees(entity.position.lat, entity.position.lon, entity.position.alt),
       rotation: Cesium.Math.toRadians(-entity.heading),
       image: '/assets/images/fighter.png',
-      scale: 0.1
+      scale: 0.5
     }
   }
 }

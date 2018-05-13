@@ -16,6 +16,8 @@ export class MapViewConfigurator {
       infoBox: false,
       sceneModePicker: false,
       timeline: false,
+      requestRendering: true,
+      maximumRenderingFrame: Infinity,
       selectionIndicator: false,
       navigationHelpButton: false,
       navigationInstructionsInitiallyVisible: false,

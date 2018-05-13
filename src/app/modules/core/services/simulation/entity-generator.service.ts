@@ -1,37 +1,41 @@
 import {Injectable} from '@angular/core';
 import {Entity} from '../../types/entity';
 import {Position} from '../../types/position';
-
-const getSign = () => Math.round(Math.random()) * 2 - 1;
+import {SimulationOptions} from '../../types/simulation/simulation-options';
+import {BoundingBox} from '../../types/bounding-box';
 
 @Injectable()
 export class EntityGenerator {
 
-  generateEntities(entityCount: number, anchorPosition: Position): Entity[] {
+  generateEntities(options: SimulationOptions): Entity[] {
     const entities: Entity[] = [];
 
-    for (let i = 0; i < entityCount; i++) {
-      const generatedEntity = this.generateEntity(`entity_${i}`, anchorPosition);
+    for (let i = 0; i < options.entityCount; i++) {
+      const generatedEntity = this.generateEntity(`entity_${i}`,
+        options.boundingBox);
       entities.push(generatedEntity);
     }
+
+    console.log(entities);
 
     return entities;
   }
 
-  generateEntity(id: string, anchorPosition: any): Entity {
+  generateEntity(id: string, boundingBox: BoundingBox): Entity {
     return {
       id,
-      position: this.generatePosition(anchorPosition, 2),
+      position: this.generatePosition(boundingBox),
       heading: Math.random()
     }
   }
 
-  generatePosition(anchorPosition: Position, distance = 1): Position {
+  generatePosition(boundingBox: BoundingBox): Position {
     return {
-      lat: anchorPosition.lat + getSign() * (Math.random() * distance),
-      lon: anchorPosition.lon + getSign() * (Math.random() * distance),
+      lat: Cesium.Math.randomBetween(
+        boundingBox.bottomLeftPosition.lat, boundingBox.topRightPosition.lat),
+      lon: Cesium.Math.randomBetween(
+        boundingBox.bottomLeftPosition.lon, boundingBox.topRightPosition.lon),
       alt: 0
     };
   }
-
 }

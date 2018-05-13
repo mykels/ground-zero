@@ -14,11 +14,18 @@ export class EntityDistributor {
 
   getOptions(): SimulationOptions {
     return {
-      entityCount: 50,
-      anchorPosition: {
-        lat: 32.085299899999995,
-        lon: 34.78176759999997,
-        alt: 10000
+      entityCount: 500,
+      boundingBox: {
+        bottomLeftPosition: {
+          lat: 30.035299899999995,
+          lon: 33.2876759999997,
+          alt: 0
+        },
+        topRightPosition: {
+          lat: 36.175299899999995,
+          lon: 42.53176759999997,
+          alt: 0
+        }
       }
     }
   }

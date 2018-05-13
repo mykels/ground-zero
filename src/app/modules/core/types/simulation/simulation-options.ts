@@ -1,6 +1,6 @@
-import {Position} from '../position';
+import {BoundingBox} from '../bounding-box';
 
 export interface SimulationOptions {
   entityCount: number,
-  anchorPosition: Position
+  boundingBox: BoundingBox
 }

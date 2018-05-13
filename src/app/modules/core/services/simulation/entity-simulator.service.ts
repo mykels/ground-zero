@@ -18,17 +18,17 @@ export class EntitySimulator {
 
   simulate(options: SimulationOptions): void {
     this.initInitialEntities(options);
-    this.simulateUpdates();
+    this.simulateUpdates(options);
   }
 
-  simulateUpdates() {
+  simulateUpdates(options: SimulationOptions) {
     this.store.select('entities')
       .take(1)
       .subscribe(entities => {
         entities.forEach(entity => {
           setInterval(() => {
             entity.heading += getSign() * 2;
-            entity.position = this.entityGenerator.generatePosition(entity.position, 0.3);
+            entity.position = this.entityGenerator.generatePosition(options.boundingBox);
             this.store.dispatch(new UpdateEntityAction(entity));
           }, 1000);
         });
@@ -36,7 +36,7 @@ export class EntitySimulator {
   }
 
   private initInitialEntities(options: SimulationOptions) {
-    const entities: Entity[] = this.entityGenerator.generateEntities(options.entityCount, options.anchorPosition);
+    const entities: Entity[] = this.entityGenerator.generateEntities(options);
 
     entities.forEach(entity => {
       this.store.dispatch(new AddEntityAction(entity));

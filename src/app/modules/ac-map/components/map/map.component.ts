@@ -45,7 +45,7 @@ export class MapComponent implements OnInit {
   }
 
   initDefaults() {
-    this.defaultSceneMode = SceneMode.PERFORMANCE_SCENE2D;
+    this.defaultSceneMode = SceneMode.COLUMBUS_VIEW;
     this.defaultProvider = MapLayerProviderOptions.OFFLINE;
     this.homeLocation = ({
       duration: 2,
