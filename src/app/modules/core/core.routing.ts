@@ -12,8 +12,12 @@ const routes: Routes = [
         loadChildren: 'app/modules/ac-map/ac-map.module#AcMapModule',
       },
       {
+        path: 'cesiumMap',
+        loadChildren: 'app/modules/cesium-map/cesium-map.module#CesiumMapModule',
+      },
+      {
         path: '',
-        redirectTo: 'acMap',
+        redirectTo: 'cesiumMap',
         pathMatch: 'full'
       }
     ]

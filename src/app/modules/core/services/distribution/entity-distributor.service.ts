@@ -14,7 +14,7 @@ export class EntityDistributor {
 
   getOptions(): SimulationOptions {
     return {
-      entityCount: 500,
+      entityCount: 100,
       boundingBox: {
         bottomLeftPosition: {
           lat: 30.035299899999995,

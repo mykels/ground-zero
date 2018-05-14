@@ -13,7 +13,6 @@ const getSign = () => Math.round(Math.random()) * 2 - 1;
 export class EntitySimulator {
   constructor(private entityGenerator: EntityGenerator,
               private store: Store<AppState>) {
-
   }
 
   simulate(options: SimulationOptions): void {
@@ -25,13 +24,13 @@ export class EntitySimulator {
     this.store.select('entities')
       .take(1)
       .subscribe(entities => {
-        entities.forEach(entity => {
-          setInterval(() => {
+        setInterval(() => {
+          entities.forEach(entity => {
             entity.heading += getSign() * 2;
             entity.position = this.entityGenerator.generatePosition(options.boundingBox);
             this.store.dispatch(new UpdateEntityAction(entity));
-          }, 1000);
-        });
+          });
+        }, 2000);
       });
   }
 

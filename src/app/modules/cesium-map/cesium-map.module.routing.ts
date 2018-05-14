@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AcMapComponent} from './components/ac-map/ac-map.component';
+import {CesiumMapComponent} from './components/cesium-map/cesium-map.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AcMapComponent
+    component: CesiumMapComponent
   }
 ];
 
@@ -13,5 +13,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AcMapRoutingModule {
+export class CesiumMapRoutingModule {
 }

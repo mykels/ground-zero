@@ -1,15 +1,16 @@
 import {EntitiesReducer} from './entities/entities.reducer';
 import {Entity} from '../core/types/entity';
 import {DistributedEntityReducer} from './distributed-entity/distributed-entity.reducer';
+import {Map} from 'immutable';
 
 export interface AppState {
   distributedEntity: Entity;
-  entities: Entity[]
+  entities: Map<string, Entity>
 }
 
 export const initialState: AppState = {
   distributedEntity: null,
-  entities: []
+  entities: Map<string, Entity>()
 };
 
 export const reducerMap = {

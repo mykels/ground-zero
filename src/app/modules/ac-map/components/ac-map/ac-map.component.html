@@ -6,17 +6,17 @@
     <ac-billboard-desc props="{
       image: entity.image,
       position: entity.position,
-      color: entity.color,
+      color: entity.color
       scale: entity.scale,
       name: entity.id,
-      rotation: entity.rotation
+      rotation: degreesToRadians(entity.heading)
     }">
     </ac-billboard-desc>
     <ac-label-primitive-desc props="{
        position: entity.position,
        pixelOffset : [-25,30] | pixelOffset,
        text: entity.rotation.toString(),
-       font: '10px sans-serif'
+       font: '18px sans-serif'
      }">
     </ac-label-primitive-desc>
   </ac-layer>

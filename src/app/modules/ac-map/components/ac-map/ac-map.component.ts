@@ -10,11 +10,11 @@ import {NotificationBuilder} from '../../services/notification/notification-buil
 import {Entity} from '../../../core/types/entity';
 
 @Component({
-  selector: 'gz-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  selector: 'gz-ac-map',
+  templateUrl: './ac-map.component.html',
+  styleUrls: ['./ac-map.component.css'],
 })
-export class MapComponent implements OnInit {
+export class AcMapComponent implements OnInit {
   private entities$: Observable<AcNotification>;
   private defaultSceneMode: SceneMode;
   private defaultProvider: MapLayerProviderOptions;
@@ -27,10 +27,13 @@ export class MapComponent implements OnInit {
               private mapEntityBuilder: MapEntityBuilder,
               private store: Store<AppState>) {
     this.viewerConfiguration.viewerOptions = this.mapViewConfigurator.get();
+    this.viewerConfiguration.viewerModifier = viewer => {
+      viewer.scene.debugShowFramesPerSecond = true;
+    };
   }
 
   ngOnInit(): void {
-    console.log('initializing map component');
+    console.log('AcMapComponent:initialized');
 
     this.initDefaults();
 
@@ -45,7 +48,7 @@ export class MapComponent implements OnInit {
   }
 
   initDefaults() {
-    this.defaultSceneMode = SceneMode.COLUMBUS_VIEW;
+    this.defaultSceneMode = SceneMode.PERFORMANCE_SCENE2D;
     this.defaultProvider = MapLayerProviderOptions.OFFLINE;
     this.homeLocation = ({
       duration: 2,
