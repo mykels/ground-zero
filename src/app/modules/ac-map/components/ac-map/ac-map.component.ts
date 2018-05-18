@@ -5,9 +5,9 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/store';
-import {MapEntityBuilder} from '../../services/map-entity-builder';
 import {NotificationBuilder} from '../../services/notification/notification-builder';
 import {Entity} from '../../../core/types/entity';
+import {MapEntityBuilder} from '../../../core/services/builders/map-entity-builder';
 
 @Component({
   selector: 'gz-ac-map',

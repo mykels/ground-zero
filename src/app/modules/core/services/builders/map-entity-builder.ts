@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MapEntity} from '../types/map-entity';
+import {MapEntity} from '../../types/map-entity';
 
 @Injectable()
 export class MapEntityBuilder {

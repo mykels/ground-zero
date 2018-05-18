@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../store/store';
 import {Observable} from 'rxjs/Observable';
 import {Entity} from '../../../core/types/entity';
-import {Map} from 'immutable';
+import {ViewerHolder} from '../../services/viewer-holder/viewer-holder';
 
 @Component({
   selector: 'gz-cesium-map',
@@ -13,9 +13,10 @@ import {Map} from 'immutable';
 })
 export class CesiumMapComponent implements OnInit {
   viewer: any;
-  entitiesMap$: Observable<Map<string, Entity>>;
+  entities$: Observable<Entity[]>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+              private viewerHolder: ViewerHolder) {
   }
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class CesiumMapComponent implements OnInit {
     this.initViewer();
     this.optimizeViewer();
     this.initEntities();
+    this.viewerHolder.init(this.viewer);
   }
 
   private optimizeViewer() {
@@ -62,6 +64,10 @@ export class CesiumMapComponent implements OnInit {
   }
 
   private initEntities() {
-    this.entitiesMap$ = this.store.select('entities');
+    this.entities$ = this.store.select('entities');
+
+    this.entities$.subscribe(entities => {
+      console.log('CesiumMapComponent', entities)
+    });
   }
 }
