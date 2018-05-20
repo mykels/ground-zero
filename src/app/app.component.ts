@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {EntityDistributor} from './modules/core/services/distribution/entity-distributor.service';
 
 @Component({
   selector: 'gz-root',
@@ -7,8 +6,7 @@ import {EntityDistributor} from './modules/core/services/distribution/entity-dis
 })
 export class AppComponent implements OnInit {
 
-  constructor(private entityDistributor: EntityDistributor) {
-    this.entityDistributor.init();
+  constructor() {
   }
 
   ngOnInit(): void {

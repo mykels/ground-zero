@@ -1,4 +1,4 @@
-import {Position} from './position';
+import {Position} from './map/position';
 
 export interface Entity {
   id: string,

@@ -4,8 +4,8 @@ import {EntityGenerator} from './entity-generator.service';
 import {AppState} from '../../../store/store';
 import {Store} from '@ngrx/store';
 import {SimulationOptions} from '../../types/simulation/simulation-options';
-import {AddEntityAction, UpdateEntityAction} from '../../../store/entities/entities.actions';
 import 'rxjs/add/operator/take';
+import {AddEntitiesAction, UpdateEntitiesAction} from '../../../store/entities/entities.actions';
 
 const getSign = () => Math.round(Math.random()) * 2 - 1;
 
@@ -26,19 +26,19 @@ export class EntitySimulator {
       .subscribe(entities => {
         setInterval(() => {
           entities.forEach(entity => {
-            entity.heading += getSign() * 2;
+            entity.heading = (entity.heading * getSign() * 20) % 180;
             entity.position = this.entityGenerator.generatePosition(options.boundingBox);
-            this.store.dispatch(new UpdateEntityAction(entity));
           });
-        }, 2000);
+
+          this.store.dispatch(new UpdateEntitiesAction(entities));
+
+        }, options.updateInterval);
       });
   }
 
   private initInitialEntities(options: SimulationOptions) {
     const entities: Entity[] = this.entityGenerator.generateEntities(options);
 
-    entities.forEach(entity => {
-      this.store.dispatch(new AddEntityAction(entity));
-    });
+    this.store.dispatch(new AddEntitiesAction(entities));
   }
 }

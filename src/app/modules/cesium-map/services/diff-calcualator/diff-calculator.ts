@@ -24,7 +24,7 @@ export class DiffCalculator {
     a.forEach(element => {
       if (b.get(element.id)) {
         diff.updated.push(element);
-        b.remove(element);
+        b = b.remove(element.id);
       } else {
         diff.removed.push(element);
       }

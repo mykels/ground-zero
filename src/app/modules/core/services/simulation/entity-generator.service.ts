@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Entity} from '../../types/entity';
-import {Position} from '../../types/position';
 import {SimulationOptions} from '../../types/simulation/simulation-options';
 import {BoundingBox} from '../../types/bounding-box';
+import {Position} from '../../types/map/position';
 
 @Injectable()
 export class EntityGenerator {
@@ -15,8 +15,6 @@ export class EntityGenerator {
         options.boundingBox);
       entities.push(generatedEntity);
     }
-
-    console.log(entities);
 
     return entities;
   }

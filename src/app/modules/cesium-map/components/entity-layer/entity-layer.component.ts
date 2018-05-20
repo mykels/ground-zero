@@ -5,8 +5,8 @@ import {AppState} from '../../../store/store';
 import {Entity} from '../../../core/types/entity';
 import {DiffCalculator} from '../../services/diff-calcualator/diff-calculator';
 import {Diff} from '../../types/diff';
-import {MapEntitiesDrawer} from '../../services/map-entities-drawer/map-entities-drawer';
 import {Map} from 'immutable';
+import {MapEntityDrawer} from '../../services/map-entity-drawer/map-entity-drawer.service';
 
 @Component({
   selector: 'gz-entity-layer',
@@ -18,26 +18,27 @@ export class EntityLayerComponent implements OnInit, OnChanges {
 
   constructor(private store: Store<AppState>,
               private diffCalculator: DiffCalculator,
-              private entityDrawer: MapEntitiesDrawer) {
+              private entityDrawer: MapEntityDrawer) {
   }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const entitiesMapChange: SimpleChange = changes['entitiesMap'];
+    const entitiesMapChange: SimpleChange = changes['entities'];
     if (entitiesMapChange) {
-      console.log('EntityLayerComponent', entitiesMapChange);
       const diff: Diff<Entity> = this.diffCalculator.calculate(
         this.toEntitiesMap(entitiesMapChange.previousValue),
-        this.toEntitiesMap(entitiesMapChange.currentValue);
+        this.toEntitiesMap(entitiesMapChange.currentValue));
       this.entityDrawer.draw(diff);
     }
   }
 
-  private toEntitiesMap(entitites: Entity[]): Map<string, Entity> {
-    const entitiesMap = Map<string, Entity>();
-    entitiesMap.mergeWith(entitites);
-    return entitiesMap;
+  private toEntitiesMap(entities: Entity[]): Map<string, Entity> {
+    if (!entities) {
+      return Map<string, Entity>();
+    }
+
+    return Map(entities.map((entity: Entity) => ([entity.id, entity])));
   }
 }
