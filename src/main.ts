@@ -11,5 +11,5 @@ window['CESIUM_BASE_URL'] = 'src/assets/cesium';
 
 platformBrowserDynamic().bootstrapModule(AppModule)
 .catch(error => {
-  console.log('Error while bootstrapping application, see causing error', error);
+  console.error('Error while bootstrapping application, see causing error: ', error);
 });

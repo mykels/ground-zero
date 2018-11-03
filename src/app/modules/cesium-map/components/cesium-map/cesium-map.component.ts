@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../../store/store';
-import { ViewerHolder } from '../../services/viewer-holder/viewer-holder';
 import { EntityDistributor } from '../../../core/services/distribution/entity-distributor.service';
 import { Observable } from 'rxjs';
 import { Entity } from '../../../core/types/entity/entity';
+import { ViewerInitializerService } from "../../services/viewer/viewer-initializer/viewer-initializer.service";
+import { ViewerHolder } from "../../services/viewer/viewer-holder/viewer-holder";
 
 @Component({
   selector: 'gz-cesium-map',
@@ -17,59 +18,25 @@ export class CesiumMapComponent implements OnInit, AfterViewInit {
   lastPreRenderTime = 0;
 
   constructor(private store: Store<AppState>,
+              private viewerInitializer: ViewerInitializerService,
               private viewerHolder: ViewerHolder,
               private entityDistributor: EntityDistributor) {
   }
 
   ngOnInit(): void {
     this.initViewer();
-    this.optimizeScene();
+    // this.optimizeScene();
     this.initEntities();
-    this.registerRenderEvents();
-    this.viewerHolder.init(this.viewer);
+    // this.registerRenderEvents();
+    // this.viewerHolder.init(this.viewer);
   }
 
   ngAfterViewInit(): void {
     this.flyHome();
   }
 
-  private optimizeScene() {
-    this.viewer.scene.debugShowFramesPerSecond = true;
-    this.viewer.scene.fxaa = false;
-    this.viewer.scene.sunBloom = false;
-    this.viewer.scene.skyAtmosphere.show = false;
-    this.viewer.scene.fog.enabled = false;
-    this.viewer.shadows = false;
-    this.viewer.terrainShadows = false;
-    this.viewer.scene.shadowMap.enabled = false;
-    this.viewer.scene.shadowMap.enabled = false;
-    this.viewer.scene.cameraEventWaitTime = 3000;
-  }
-
   private initViewer() {
-    this.viewer = new Cesium.Viewer('cesiumMap', this.getViewerOptions());
-  }
-
-  private getViewerOptions(): any {
-    return {
-      imageryProvider: Cesium.createTileMapServiceImageryProvider({
-        url: Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')
-      }),
-      baseLayerPicker: false,
-      geocoder: false,
-      fullscreenButton: false,
-      homeButton: false,
-      infoBox: true,
-      sceneModePicker: false,
-      timeline: false,
-      selectionIndicator: false,
-      navigationHelpButton: false,
-      navigationInstructionsInitiallyVisible: false,
-      animation: false,
-      scene3DOnly: true,
-      requestRenderMode: true,
-      maximumRenderTimeChange: Infinity
-    };
+    this.viewerInitializer.init('cesiumMap', true);
   }
 
   private initEntities() {
@@ -87,10 +54,12 @@ export class CesiumMapComponent implements OnInit, AfterViewInit {
   }
 
   private flyHome() {
-    this.viewer.camera.flyTo({
-      complete: this.onFlyComplete.bind(this),
-      destination: Cesium.Cartesian3.fromDegrees(33.105299899999995, 37.909721799999835, 2000000.0),
-    });
+    this.viewerHolder.getViewer().subscribe((viewer: any) => {
+      viewer.camera.flyTo({
+        complete: this.onFlyComplete.bind(this),
+        destination: Cesium.Cartesian3.fromDegrees(33.105299899999995, 37.909721799999835, 2000000.0),
+      });
+    })
   }
 
   private onFlyComplete() {

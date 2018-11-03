@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Diff} from '../../types/diff';
-import {MapEntityBuilder} from '../../../core/services/builders/map-entity-builder';
-import {ViewerHolder} from '../viewer-holder/viewer-holder';
-import {MapEntity} from '../../../core/types/map/map-entity';
-import {Billboard} from '../../../core/types/map/billboard';
-import {Label} from '../../../core/types/map/label';
-import {Polyline} from '../../../core/types/map/polyline';
+import { Injectable } from '@angular/core';
+import { Diff } from '../../types/diff';
+import { MapEntityBuilder } from '../../../core/services/builders/map-entity-builder';
+import { MapEntity } from '../../../core/types/map/map-entity';
+import { Billboard } from '../../../core/types/map/billboard';
+import { Label } from '../../../core/types/map/label';
+import { Polyline } from '../../../core/types/map/polyline';
 import { Entity } from '../../../core/types/entity/entity';
+import { ViewerHolder } from "../viewer/viewer-holder/viewer-holder";
 
 @Injectable()
 export class MapEntityDrawer {
