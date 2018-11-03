@@ -3,8 +3,11 @@
 Ground Zero provides a comparision between various GIS web libraries.
 
 This project was built with the mindset of comparing different GIS web libraries
-under the same conditions (Machine capabilities, data configuration etc.) in order to 
-choose the best WebGL library for interactive maps for *your* use case. 
+under the same conditions (machine capabilities, data configuration etc.) in order to 
+choose the best WebGL library for interactive maps tailored to **your** use case. 
+
+This project does **NOT** compare the various features of each particular library but rather 
+compares each library under specific simulated scenarios.
 
 ## Getting Started
 
