@@ -8,12 +8,12 @@ const routes: Routes = [
     component: MasterComponent,
     children: [
       {
-        path: 'acMap',
-        loadChildren: 'app/modules/ac-map/ac-map.module#AcMapModule',
-      },
-      {
         path: 'cesiumMap',
         loadChildren: 'app/modules/cesium-map/cesium-map.module#CesiumMapModule',
+      },
+      {
+        path: 'acMap',
+        loadChildren: 'app/modules/ac-map/ac-map.module#AcMapModule',
       },
       {
         path: 'leafletMap',
