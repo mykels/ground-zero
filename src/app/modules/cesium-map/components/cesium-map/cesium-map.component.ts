@@ -1,11 +1,10 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import 'rxjs/Rx';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../store/store';
-import {Observable} from 'rxjs/Observable';
-import {Entity} from '../../../core/types/entity';
-import {ViewerHolder} from '../../services/viewer-holder/viewer-holder';
-import {EntityDistributor} from '../../../core/services/distribution/entity-distributor.service';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../store/store';
+import { ViewerHolder } from '../../services/viewer-holder/viewer-holder';
+import { EntityDistributor } from '../../../core/services/distribution/entity-distributor.service';
+import { Observable } from 'rxjs';
+import { Entity } from '../../../core/types/entity/entity';
 
 @Component({
   selector: 'gz-cesium-map',
@@ -23,7 +22,6 @@ export class CesiumMapComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log('CesiumMapComponent:initialized');
     this.initViewer();
     this.optimizeScene();
     this.initEntities();
@@ -71,21 +69,21 @@ export class CesiumMapComponent implements OnInit, AfterViewInit {
       scene3DOnly: true,
       requestRenderMode: true,
       maximumRenderTimeChange: Infinity
-    }
+    };
   }
 
   private initEntities() {
-    this.entities$ = this.store.select('entities');
+    this.entities$ = this.store.pipe(select('entities'));
   }
 
   private registerRenderEvents() {
-    this.viewer.scene.preRender.addEventListener(() => {
-      this.lastPreRenderTime = new Date().getTime();
-    });
-
-    this.viewer.scene.postRender.addEventListener(() => {
-      console.info(`cesium:postRender took ${new Date().getTime() - this.lastPreRenderTime} ms`);
-    });
+    // this.viewer.scene.preRender.addEventListener(() => {
+    //   this.lastPreRenderTime = new Date().getTime();
+    // });
+    //
+    // this.viewer.scene.postRender.addEventListener(() => {
+    //   console.info(`cesium:postRender took ${new Date().getTime() - this.lastPreRenderTime} ms`);
+    // });
   }
 
   private flyHome() {

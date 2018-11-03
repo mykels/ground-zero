@@ -1,4 +1,4 @@
-import {Position} from './map/position';
+import {Position} from '../map/position';
 
 export interface BoundingBox {
   bottomLeftPosition: Position;

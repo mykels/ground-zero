@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Diff} from '../../types/diff';
-import {Map} from 'immutable';
+import { Injectable } from '@angular/core';
+import { Diff } from '../../types/diff';
+import { Entity } from '../../../core/types/entity/entity';
 
 /*****************
  * a = [1,2,3,4]
@@ -13,25 +13,35 @@ import {Map} from 'immutable';
  ****************/
 @Injectable()
 export class DiffCalculator {
-  calculate(a: Map<string, any>, b: Map<string, any>): Diff<any> {
+  calculate(a: Map<string, Entity>, b: Map<string, Entity>): Diff<Entity> {
     const diff: Diff<any> = {removed: [], added: [], updated: []};
 
     if (!a) {
-      diff.added = b.toArray();
+      diff.added = this.mapToArray(b);
       return diff;
     }
 
-    a.forEach(element => {
-      if (b.get(element.id)) {
-        diff.updated.push(element);
-        b = b.remove(element.id);
+    a.forEach((entity: Entity) => {
+      if (b.get(entity.id)) {
+        diff.updated.push(entity);
+        b.delete(entity.id);
       } else {
-        diff.removed.push(element);
+        diff.removed.push(entity);
       }
     });
 
-    diff.added = [...b.toArray()];
+    diff.added = [...this.mapToArray(b)];
 
     return diff;
+  }
+
+  private mapToArray<T>(map: Map<string, T>): T[] {
+    const arr: T[] = [];
+
+    map.forEach((value: T) => {
+      arr.push(value);
+    });
+
+    return arr;
   }
 }

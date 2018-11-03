@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Entity} from '../../types/entity';
-import {SimulationOptions} from '../../types/simulation/simulation-options';
-import {BoundingBox} from '../../types/bounding-box';
 import {Position} from '../../types/map/position';
+import { SimulationSettings } from '../../types/simulation/simulation-settings';
+import { Entity } from '../../types/entity/entity';
+import { BoundingBox } from '../../types/simulation/bounding-box';
 
 @Injectable()
 export class EntityGenerator {
 
-  generateEntities(options: SimulationOptions): Entity[] {
+  generateEntities(options: SimulationSettings): Entity[] {
     const entities: Entity[] = [];
 
     for (let i = 0; i < options.entityCount; i++) {
@@ -24,7 +24,7 @@ export class EntityGenerator {
       id,
       position: this.generatePosition(boundingBox),
       heading: Math.random()
-    }
+    };
   }
 
   generatePosition(boundingBox: BoundingBox): Position {

@@ -1,12 +1,18 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
-import 'rxjs/Rx';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../store/store';
-import {Entity} from '../../../core/types/entity';
-import {DiffCalculator} from '../../services/diff-calcualator/diff-calculator';
-import {Diff} from '../../types/diff';
-import {Map} from 'immutable';
-import {MapEntityDrawer} from '../../services/map-entity-drawer/map-entity-drawer.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges
+} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/store';
+import { DiffCalculator } from '../../services/diff-calcualator/diff-calculator';
+import { Diff } from '../../types/diff';
+import { MapEntityDrawer } from '../../services/map-entity-drawer/map-entity-drawer.service';
+import { Entity } from '../../../core/types/entity/entity';
 
 @Component({
   selector: 'gz-entity-layer',
@@ -35,10 +41,14 @@ export class EntityLayerComponent implements OnInit, OnChanges {
   }
 
   private toEntitiesMap(entities: Entity[]): Map<string, Entity> {
-    if (!entities) {
-      return Map<string, Entity>();
+    const entityMap: Map<string, Entity> = new Map<string, Entity>();
+
+    if (entities) {
+      entities.forEach((entity: Entity) => {
+        entityMap.set(entity.id, entity);
+      });
     }
 
-    return Map(entities.map((entity: Entity) => ([entity.id, entity])));
+    return entityMap;
   }
 }

@@ -1,0 +1,30 @@
+<div class="settings-configurator"
+     [class.settings-active]="active">
+  <div class="settings-form-container">
+    <mat-form-field>
+      <input type="number" matInput #entityCountRef
+             min="0" max="2000"
+             placeholder="Entity Count (< 2000)" [value]="(simulationSettings$ | async).entityCount">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="number" matInput #updateRateRef
+             min="10" max="30000"
+             placeholder="Update Rate (ms)" [value]="(simulationSettings$ | async).updateRate">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="number" matInput #updateFractionRef
+             min="0" max="1"
+             placeholder="Update Fraction (<=1)" [value]="(simulationSettings$ | async).updateFraction">
+    </mat-form-field>
+    <div class="settings-options">
+      <button mat-raised-button class="save-button"
+              (click)="saveChanges(entityCountRef.value, updateRateRef.value, updateFractionRef.value)">
+        Save
+      </button>
+      <button mat-raised-button class="restore-button"
+              (click)="restoreChanges()">
+        Restore
+      </button>
+    </div>
+  </div>
+</div>

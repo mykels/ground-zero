@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {MasterComponent} from '../master/master.component';
+import { MasterComponent } from './components/master/master.component';
 
 const routes: Routes = [
   {
@@ -9,19 +9,19 @@ const routes: Routes = [
     children: [
       {
         path: 'cesiumMap',
-        loadChildren: 'app/modules/cesium-map/cesium-map.module#CesiumMapModule',
+        loadChildren: '../../../app/modules/cesium-map/cesium-map.module#CesiumMapModule',
       },
       {
         path: 'acMap',
-        loadChildren: 'app/modules/ac-map/ac-map.module#AcMapModule',
+        loadChildren: '../../../app/modules/ac-map/ac-map.module#AcMapModule',
       },
       {
         path: 'leafletMap',
-        loadChildren: 'app/modules/leaflet-map/leaflet-map.module#LeafletMapModule',
+        loadChildren: '../../../app/modules/leaflet-map/leaflet-map.module#LeafletMapModule',
       },
       {
         path: '',
-        redirectTo: 'leafletMap',
+        redirectTo: 'cesiumMap',
         pathMatch: 'full'
       }
     ]

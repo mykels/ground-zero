@@ -5,8 +5,8 @@ export interface Label {
   position?: Cartesian3;
   font?: string;
   pixelOffset?: any;
-  fillColor?: any,
-  outlineColor?: any,
-  outlineWidth?: number,
+  fillColor?: any;
+  outlineColor?: any;
+  outlineWidth?: number;
   style?: any;
 }

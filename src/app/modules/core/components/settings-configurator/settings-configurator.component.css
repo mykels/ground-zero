@@ -1,0 +1,38 @@
+.settings-configurator {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 150px;
+  z-index: 99;
+  padding: 20px;
+  background-color: #d9dee4;
+  transform: translateX(-200px);
+  transition: .5s ease-out;
+  will-change: transform;
+  box-shadow: 0 8px 6px -6px #999;
+  opacity: .9;
+}
+
+.settings-active {
+  transform: translateX(0);
+}
+
+.settings-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.save-button {
+  background-color: #7fb176;
+}
+
+.restore-button {
+  background-color: #cccccc;
+}

@@ -1,0 +1,31 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 45px;
+  padding: 0 10px 0 10px;
+  background: radial-gradient(#69a5ef, #568cf5);
+  box-shadow: 0 8px 6px -6px #999;
+  opacity: .8;
+}
+
+.navbar-action {
+  cursor: pointer;
+  color: white;
+  user-select: none;
+  outline: none;
+  transition: color .3s ease-out;
+}
+
+.navbar-action:hover {
+  color: #d9dee4;
+}
+
+.settings-active {
+  animation: rotation-left .5s linear;
+}
+
+.settings-inactive {
+  animation: rotation-right .5s linear;
+}

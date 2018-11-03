@@ -1,0 +1,10 @@
+<div class="navbar">
+  <mat-icon class="navbar-action"
+            [class.settings-active]="settingsActive"
+            [class.settings-inactive]="!settingsActive"
+            (click)="openSettings()">
+    settings
+  </mat-icon>
+</div>
+
+<gz-settings-configurator [active]="settingsActive"></gz-settings-configurator>

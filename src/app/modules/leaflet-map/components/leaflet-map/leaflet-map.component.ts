@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AppState} from '../../../store/store';
-import {Store} from '@ngrx/store';
-import {Entity} from '../../../core/types/entity';
-import {EntityDistributor} from '../../../core/services/distribution/entity-distributor.service';
+import { Component, OnInit } from '@angular/core';
+import { AppState } from '../../../store/store';
+import { Store } from '@ngrx/store';
+import { EntityDistributor } from '../../../core/services/distribution/entity-distributor.service';
+import { Entity } from '../../../core/types/entity/entity';
 
 @Component({
   selector: 'gz-leaflet-map',
@@ -31,7 +31,9 @@ export class LeafletMapComponent implements OnInit {
 
   initRasters() {
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      attribution: `Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors,
+                    <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,
+                    Imagery © <a href="https://www.mapbox.com/">Mapbox</a>`,
       maxZoom: 18,
       id: 'mapbox.streets',
       accessToken: 'pk.eyJ1IjoibXlrZWxzIiwiYSI6ImNqZ2Rtd2hkdjNjdngycXJuNTk2eWIycDMifQ.U0JlFzbO8ZXcBuYAlhTVzQ'
@@ -40,11 +42,11 @@ export class LeafletMapComponent implements OnInit {
 
   initEntities() {
     this.store.select('entities')
-      .subscribe((entitities: Entity[]) => {
-        entitities.forEach((entity: Entity) => {
-          this.drawEntity(entity);
-        });
+    .subscribe((entitities: Entity[]) => {
+      entitities.forEach((entity: Entity) => {
+        this.drawEntity(entity);
       });
+    });
   }
 
   drawEntity(entity: Entity) {

@@ -1,15 +1,14 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {AcNotification, SceneMode, ViewerConfiguration} from 'angular-cesium';
-import {MapViewConfigurator} from '../../services/map-view-configurator';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/Rx';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../store/store';
-import {NotificationBuilder} from '../../services/notification/notification-builder';
-import {Entity} from '../../../core/types/entity';
-import {MapEntityBuilder} from '../../../core/services/builders/map-entity-builder';
-import {EntityDistributor} from '../../../core/services/distribution/entity-distributor.service';
-import 'rxjs/add/operator/take';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AcNotification, SceneMode, ViewerConfiguration } from 'angular-cesium';
+import { MapViewConfigurator } from '../../services/map-view-configurator';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/store';
+import { NotificationBuilder } from '../../services/notification/notification-builder';
+import { MapEntityBuilder } from '../../../core/services/builders/map-entity-builder';
+import { EntityDistributor } from '../../../core/services/distribution/entity-distributor.service';
+import { Observable } from 'rxjs';
+import { flatMap, map, take } from 'rxjs/operators';
+import { Entity } from '../../../core/types/entity/entity';
 
 @Component({
   selector: 'gz-ac-map',
@@ -36,22 +35,20 @@ export class AcMapComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log('AcMapComponent:initialized');
-
     this.initDefaults();
 
-    this.entities$ = this.store.select('distributedEntities')
-      .map((distributedEntities: Entity[]) => {
-        return distributedEntities.map(this.notificationBuilder.build.bind(this));
-      })
-      .flatMap((notifications: AcNotification[]) => {
+    this.entities$ = this.store.select('entities').pipe(
+      map((entities: Entity[]) => {
+        return entities.map(this.notificationBuilder.build.bind(this));
+      }),
+      flatMap((notifications: AcNotification[]) => {
         return notifications.map(notification => {
           notification.entity = this.mapEntityBuilder.build(notification.entity);
           return notification;
         });
-      });
+      }));
 
-    this.entities$.take(1).subscribe(entity => {
+    this.entities$.pipe(take(1)).subscribe(entity => {
       console.log('ac-map', entity);
     });
   }

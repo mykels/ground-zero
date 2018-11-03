@@ -55,7 +55,7 @@ export class MapEntityBuilder {
           width: 2
         }
       ]
-    }
+    };
   }
 
   private computeHeadVector(position: Cartesian3, entity: any): Cartesian3[] {

@@ -24,6 +24,6 @@ export class MapViewConfigurator {
       navigationInstructionsInitiallyVisible: false,
       animation: false,
       scene3DOnly: true,
-    }
+    };
   }
 }
