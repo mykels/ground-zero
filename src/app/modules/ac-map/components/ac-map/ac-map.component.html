@@ -1,23 +1,57 @@
-<ac-map [flyTo]="homeLocation" [sceneMode]="defaultSceneMode">
-  <ac-map-layer-provider [options]="{}" [provider]="defaultProvider">
-  </ac-map-layer-provider>
+<ac-map [sceneMode]="defaultSceneMode">
   <ac-layer acFor="let entity of entities$"
-            [show]="true" [context]="this" [store]="true">
+            [show]="true" [context]="this" [store]="false">
     <ac-billboard-desc props="{
-      image: entity.image,
+      image: entity.billboards[0].image,
       position: entity.position,
-      color: entity.color
-      scale: entity.scale,
-      name: entity.id,
-      rotation: degreesToRadians(entity.heading)
+      scale: entity.billboards[0].scale,
+      rotation: entity.billboards[0].rotation
     }">
     </ac-billboard-desc>
-    <ac-label-primitive-desc props="{
-       position: entity.position,
-       pixelOffset : [-25,30] | pixelOffset,
-       text: entity.rotation.toString(),
-       font: '18px sans-serif'
-     }">
-    </ac-label-primitive-desc>
+    <ac-label-desc props="{
+      position: entity.position,
+      fillColor: entity.labels[1].fillColor,
+      font: entity.labels[1].font,
+      outlineColor: entity.labels[1].outlineColor,
+      outlineWidth: entity.labels[1].outlineWidth,
+      pixelOffset: entity.labels[1].pixelOffset,
+      style: entity.labels[1].style,
+      text: entity.labels[1].text
+    }">
+    </ac-label-desc>
+    <ac-label-desc props="{
+      position: entity.position,
+      fillColor: entity.labels[2].fillColor,
+      font: entity.labels[2].font,
+      outlineColor: entity.labels[2].outlineColor,
+      outlineWidth: entity.labels[2].outlineWidth,
+      pixelOffset: entity.labels[2].pixelOffset,
+      style: entity.labels[2].style,
+      text: entity.labels[2].text
+    }">
+    </ac-label-desc>
+    <ac-label-desc props="{
+      position: entity.position,
+      fillColor: entity.labels[3].fillColor,
+      font: entity.labels[3].font,
+      outlineColor: entity.labels[3].outlineColor,
+      outlineWidth: entity.labels[3].outlineWidth,
+      pixelOffset: entity.labels[3].pixelOffset,
+      style: entity.labels[3].style,
+      text: entity.labels[3].text
+    }">
+    </ac-label-desc>
+    <ac-polyline-desc props="{
+      positions: entity.polylines[0].positions,
+      material: entity.polylines[0].material,
+      width: entity.polylines[0].width
+    }">
+    </ac-polyline-desc>
+    <ac-polyline-desc props="{
+      positions: entity.polylines[1].positions,
+      material: entity.polylines[1].material,
+      width: entity.polylines[1].width
+    }">
+    </ac-polyline-desc>
   </ac-layer>
 </ac-map>

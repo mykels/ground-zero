@@ -9,9 +9,12 @@ export class MapViewConfigurator {
 
   get(): any {
     return {
+      imageryProvider: Cesium.createTileMapServiceImageryProvider({
+        url: Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')
+      }),
+      baseLayerPicker: false,
       geocoder: false,
       fullscreenButton: false,
-      baseLayerPicker: false,
       homeButton: false,
       infoBox: true,
       sceneModePicker: false,
@@ -19,7 +22,8 @@ export class MapViewConfigurator {
       selectionIndicator: false,
       navigationHelpButton: false,
       navigationInstructionsInitiallyVisible: false,
-      animation: false
+      animation: false,
+      scene3DOnly: true,
     }
   }
 }

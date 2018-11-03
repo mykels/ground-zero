@@ -4,16 +4,13 @@ import {
   ADD_ENTITIES,
   AddEntitiesAction,
   UPDATE_ENTITIES,
-  UPDATE_ENTITY,
   UpdateEntitiesAction,
-  UpdateEntityAction
 } from './entities.actions';
 
 export class EntitiesReducer extends AbstractReducer<Entity[]> {
   constructor() {
     super();
     this.register(ADD_ENTITIES, this.addEntities.bind(this));
-    this.register(UPDATE_ENTITY, this.updateEntity.bind(this));
     this.register(UPDATE_ENTITIES, this.updateEntities.bind(this));
   }
 
@@ -23,15 +20,6 @@ export class EntitiesReducer extends AbstractReducer<Entity[]> {
     return [
       ...state,
       ...entities
-    ];
-  }
-
-  updateEntity(state: Entity[], action: UpdateEntityAction): Entity[] {
-    const updatedEntity: Entity = action.payload;
-
-    return [
-      ...state.filter(entity => entity.id !== updatedEntity.id),
-      updatedEntity
     ];
   }
 

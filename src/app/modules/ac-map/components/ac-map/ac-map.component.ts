@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {AcNotification, MapLayerProviderOptions, SceneMode, ViewerConfiguration} from 'angular-cesium';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AcNotification, SceneMode, ViewerConfiguration} from 'angular-cesium';
 import {MapViewConfigurator} from '../../services/map-view-configurator';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -8,26 +8,29 @@ import {AppState} from '../../../store/store';
 import {NotificationBuilder} from '../../services/notification/notification-builder';
 import {Entity} from '../../../core/types/entity';
 import {MapEntityBuilder} from '../../../core/services/builders/map-entity-builder';
+import {EntityDistributor} from '../../../core/services/distribution/entity-distributor.service';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'gz-ac-map',
   templateUrl: './ac-map.component.html',
   styleUrls: ['./ac-map.component.css'],
 })
-export class AcMapComponent implements OnInit {
+export class AcMapComponent implements OnInit, AfterViewInit {
+  defaultSceneMode: SceneMode;
+  homeLocation: any;
+  viewer: any;
   private entities$: Observable<AcNotification>;
-  private defaultSceneMode: SceneMode;
-  private defaultProvider: MapLayerProviderOptions;
-
-  private homeLocation: any;
 
   constructor(private viewerConfiguration: ViewerConfiguration,
               private mapViewConfigurator: MapViewConfigurator,
               private notificationBuilder: NotificationBuilder,
               private mapEntityBuilder: MapEntityBuilder,
+              private entityDistributor: EntityDistributor,
               private store: Store<AppState>) {
     this.viewerConfiguration.viewerOptions = this.mapViewConfigurator.get();
     this.viewerConfiguration.viewerModifier = viewer => {
+      this.viewer = viewer;
       viewer.scene.debugShowFramesPerSecond = true;
     };
   }
@@ -37,19 +40,24 @@ export class AcMapComponent implements OnInit {
 
     this.initDefaults();
 
-    this.entities$ = this.store.select('distributedEntity')
-      .map((distributedEntity: Entity) => {
-        return this.notificationBuilder.build(distributedEntity)
+    this.entities$ = this.store.select('distributedEntities')
+      .map((distributedEntities: Entity[]) => {
+        return distributedEntities.map(this.notificationBuilder.build.bind(this));
       })
-      .map((notification: AcNotification) => {
-        notification.entity = this.mapEntityBuilder.build(notification.entity);
-        return notification;
+      .flatMap((notifications: AcNotification[]) => {
+        return notifications.map(notification => {
+          notification.entity = this.mapEntityBuilder.build(notification.entity);
+          return notification;
+        });
       });
+
+    this.entities$.take(1).subscribe(entity => {
+      console.log('ac-map', entity);
+    });
   }
 
   initDefaults() {
-    this.defaultSceneMode = SceneMode.PERFORMANCE_SCENE2D;
-    this.defaultProvider = MapLayerProviderOptions.OFFLINE;
+    this.defaultSceneMode = SceneMode.SCENE3D;
     this.homeLocation = ({
       duration: 2,
       destination: Cesium.Cartesian3.fromDegrees(32.085299899999995, 34.78176759999997, 2000),
@@ -58,4 +66,20 @@ export class AcMapComponent implements OnInit {
       }
     });
   }
+
+  ngAfterViewInit(): void {
+    this.flyHome();
+  }
+
+  private flyHome() {
+    this.viewer.camera.flyTo({
+      complete: this.onFlyComplete.bind(this),
+      destination: Cesium.Cartesian3.fromDegrees(33.105299899999995, 37.909721799999835, 2000000.0),
+    });
+  }
+
+  private onFlyComplete() {
+    this.entityDistributor.init();
+  }
+
 }

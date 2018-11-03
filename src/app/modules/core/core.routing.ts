@@ -16,8 +16,12 @@ const routes: Routes = [
         loadChildren: 'app/modules/cesium-map/cesium-map.module#CesiumMapModule',
       },
       {
+        path: 'leafletMap',
+        loadChildren: 'app/modules/leaflet-map/leaflet-map.module#LeafletMapModule',
+      },
+      {
         path: '',
-        redirectTo: 'cesiumMap',
+        redirectTo: 'leafletMap',
         pathMatch: 'full'
       }
     ]

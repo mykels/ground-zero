@@ -13,7 +13,7 @@ export class MapEntityBuilder {
       billboards: [{
         rotation: Cesium.Math.toRadians(-entity.heading),
         image: '/assets/images/fighter.png',
-        scale: 0.15
+        scale: 0.25
       }],
       labels: [,
         {
@@ -26,7 +26,7 @@ export class MapEntityBuilder {
           style: Cesium.LabelStyle.FILL_AND_OUTLINE
         },
         {
-          text: `XP-${entity.id}`,
+          text: `TR-${entity.id}`,
           font: '12px Helvetica',
           pixelOffset: new Cesium.Cartesian2(-35, -20),
           fillColor: Cesium.Color.fromCssColorString('#ff7656'),
