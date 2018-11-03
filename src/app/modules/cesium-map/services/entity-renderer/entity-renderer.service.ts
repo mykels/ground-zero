@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Diff } from '../../types/diff';
 import { MapEntityBuilder } from '../../../core/services/builders/map-entity-builder';
 import { MapEntity } from '../../../core/types/map/map-entity';
 import { Billboard } from '../../../core/types/map/billboard';
@@ -7,9 +6,10 @@ import { Label } from '../../../core/types/map/label';
 import { Polyline } from '../../../core/types/map/polyline';
 import { Entity } from '../../../core/types/entity/entity';
 import { ViewerHolder } from "../viewer/viewer-holder/viewer-holder";
+import { Diff } from "../../../core/types/entity/diff";
 
 @Injectable()
-export class MapEntityDrawer {
+export class EntityRenderer {
   private billboardCollection: any;
   private labelCollection: any;
   private billboardsMap: Map<string, any[]>;
@@ -37,7 +37,7 @@ export class MapEntityDrawer {
     });
   }
 
-  draw(diff: Diff<Entity>) {
+  render(diff: Diff<Entity>) {
     this.viewer.entities.suspendEvents();
 
     this.handleAdded(diff.added);

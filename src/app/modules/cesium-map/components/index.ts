@@ -1,7 +1,5 @@
-import {CesiumMapComponent} from './cesium-map/cesium-map.component';
-import {EntityLayerComponent} from './entity-layer/entity-layer.component';
+import { CesiumMapComponent } from './cesium-map/cesium-map.component';
 
 export const CESIUM_MAP_COMPONENTS = [
   CesiumMapComponent,
-  EntityLayerComponent
 ];

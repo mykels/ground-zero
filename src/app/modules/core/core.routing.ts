@@ -20,7 +20,11 @@ const routes: Routes = [
         loadChildren: '../../../app/modules/leaflet-map/leaflet-map.module#LeafletMapModule',
       },
       {
-        path: '',
+        path: 'mapboxglMap',
+        loadChildren: '../../../app/modules/mapboxgl-map/mapboxgl-map.module#MapboxglMapModule',
+      },
+      {
+        path: '**',
         redirectTo: 'cesiumMap',
         pathMatch: 'full'
       }

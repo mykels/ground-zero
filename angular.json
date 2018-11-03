@@ -30,11 +30,13 @@
             "styles": [
               "src/css/core.css",
               "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/mapbox-gl/dist/mapbox-gl.css",
               "node_modules/cesium/Build/Cesium/Widgets/widgets.css",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [
               "node_modules/leaflet/dist/leaflet.js",
+              "node_modules/mapbox-gl/dist/mapbox-gl.js",
               "node_modules/cesium/Build/Cesium/Cesium.js",
               "node_modules/lodash/lodash.js"
             ]

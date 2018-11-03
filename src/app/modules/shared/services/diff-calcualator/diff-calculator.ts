@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Diff } from '../../types/diff';
-import { Entity } from '../../../core/types/entity/entity';
+import { Entity } from "../../../core/types/entity/entity";
+import { Diff } from "../../../core/types/entity/diff";
 
 /*****************
  * a = [1,2,3,4]

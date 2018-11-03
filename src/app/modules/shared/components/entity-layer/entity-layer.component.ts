@@ -1,18 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChange,
   SimpleChanges
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/store';
-import { DiffCalculator } from '../../services/diff-calcualator/diff-calculator';
-import { Diff } from '../../types/diff';
-import { MapEntityDrawer } from '../../services/map-entity-drawer/map-entity-drawer.service';
-import { Entity } from '../../../core/types/entity/entity';
+import { Diff } from "../../../core/types/entity/diff";
+import { DiffCalculator } from "../../services/diff-calcualator/diff-calculator";
+import { Entity } from "../../../core/types/entity/entity";
 
 @Component({
   selector: 'gz-entity-layer',
@@ -21,13 +22,15 @@ import { Entity } from '../../../core/types/entity/entity';
 })
 export class EntityLayerComponent implements OnInit, OnChanges {
   @Input() entities: Entity[];
+  @Output() onLayerChange: EventEmitter<Diff<Entity>>;
 
   constructor(private store: Store<AppState>,
-              private diffCalculator: DiffCalculator,
-              private entityDrawer: MapEntityDrawer) {
+              private diffCalculator: DiffCalculator) {
+    this.onLayerChange = new EventEmitter<Diff<Entity>>();
   }
 
   ngOnInit(): void {
+    console.log("EntityLayerComponent [initialized]");
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -36,7 +39,7 @@ export class EntityLayerComponent implements OnInit, OnChanges {
       const diff: Diff<Entity> = this.diffCalculator.calculate(
         this.toEntitiesMap(entitiesMapChange.previousValue),
         this.toEntitiesMap(entitiesMapChange.currentValue));
-      this.entityDrawer.draw(diff);
+      this.onLayerChange.emit(diff);
     }
   }
 

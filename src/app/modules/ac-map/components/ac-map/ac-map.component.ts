@@ -9,6 +9,8 @@ import { EntityDistributor } from '../../../core/services/distribution/entity-di
 import { Observable } from 'rxjs';
 import { flatMap, map, take } from 'rxjs/operators';
 import { Entity } from '../../../core/types/entity/entity';
+import { ConfigService } from "../../../app/services/config/config.service";
+import { ZoomConfig } from "../../../app/types/config/map/zoom/zoom-config";
 
 @Component({
   selector: 'gz-ac-map',
@@ -17,14 +19,14 @@ import { Entity } from '../../../core/types/entity/entity';
 })
 export class AcMapComponent implements OnInit, AfterViewInit {
   defaultSceneMode: SceneMode;
-  homeLocation: any;
   viewer: any;
-  private entities$: Observable<AcNotification>;
+  entities$: Observable<AcNotification>;
 
   constructor(private viewerConfiguration: ViewerConfiguration,
               private mapViewConfigurator: MapViewConfigurator,
               private notificationBuilder: NotificationBuilder,
               private mapEntityBuilder: MapEntityBuilder,
+              private configService: ConfigService,
               private entityDistributor: EntityDistributor,
               private store: Store<AppState>) {
     this.viewerConfiguration.viewerOptions = this.mapViewConfigurator.get();
@@ -48,20 +50,11 @@ export class AcMapComponent implements OnInit, AfterViewInit {
         });
       }));
 
-    this.entities$.pipe(take(1)).subscribe(entity => {
-      console.log('ac-map', entity);
-    });
+    this.entities$.pipe(take(1));
   }
 
   initDefaults() {
     this.defaultSceneMode = SceneMode.SCENE3D;
-    this.homeLocation = ({
-      duration: 2,
-      destination: Cesium.Cartesian3.fromDegrees(32.085299899999995, 34.78176759999997, 2000),
-      orientation: {
-        pitch: Cesium.Math.toRadians(-90),
-      }
-    });
   }
 
   ngAfterViewInit(): void {
@@ -69,9 +62,11 @@ export class AcMapComponent implements OnInit, AfterViewInit {
   }
 
   private flyHome() {
+    const zoom: ZoomConfig = this.configService.getConfig().map.zoom;
+
     this.viewer.camera.flyTo({
       complete: this.onFlyComplete.bind(this),
-      destination: Cesium.Cartesian3.fromDegrees(33.105299899999995, 37.909721799999835, 2000000.0),
+      destination: Cesium.Cartesian3.fromDegrees(zoom.longitude, zoom.latitude, zoom.altitude),
     });
   }
 

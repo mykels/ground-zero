@@ -3,11 +3,13 @@ import { APP_COMPONENTS } from './components';
 import { CoreModule } from '../core/core.module';
 import { APP_SERVICES } from "./services";
 import { HttpClientModule } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   imports: [
+    RouterModule,
+    HttpClientModule,
     CoreModule,
-    HttpClientModule
   ],
   declarations: [
     ...APP_COMPONENTS
@@ -17,7 +19,10 @@ import { HttpClientModule } from "@angular/common/http";
   ],
   bootstrap: [
     ...APP_COMPONENTS
-  ]
+  ],
+  exports: [
+    ...APP_COMPONENTS
+  ],
 })
 export class AppModule {
 }

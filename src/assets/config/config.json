@@ -1,5 +1,10 @@
 {
   "map": {
+    "zoom": {
+      "longitude": 33.105299899999995,
+      "latitude": 37.909721799999835,
+      "altitude": 2000000.0
+    },
     "cesium": {
       "viewerOptions": {
         "baseLayerPicker": false,
@@ -29,6 +34,15 @@
           }
         }
       ]
+    },
+    "mapboxgl": {
+      "accessToken": "pk.eyJ1IjoibXlrZWxzIiwiYSI6ImNqZ2Rtd2hkdjNjdngycXJuNTk2eWIycDMifQ.U0JlFzbO8ZXcBuYAlhTVzQ",
+      "options": {
+        "container": "mapbox-gl-map",
+        "style": "mapbox://styles/mapbox/streets-v9",
+        "center": [34.105299899999995, 32.909721799999835],
+        "zoom": 6
+      }
     }
   }
 }

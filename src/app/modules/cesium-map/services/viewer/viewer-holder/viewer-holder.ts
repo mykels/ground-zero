@@ -16,6 +16,6 @@ export class ViewerHolder {
 
   getViewer(): Observable<any> {
     return this.viewer$
-    .pipe(filter((viewer: any) => !!viewer));
+    .pipe(filter((viewer: any) => !!viewer) );
   }
 }

@@ -3,7 +3,7 @@
   left: 0;
   height: 100%;
   width: 150px;
-  z-index: 99;
+  z-index: 1001;
   padding: 20px;
   background-color: #d9dee4;
   transform: translateX(-200px);

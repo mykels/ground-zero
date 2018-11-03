@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CoreRoutingModule } from './core.routing';
 import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { CORE_COMPONENTS } from './components';
@@ -25,10 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   providers: [
     ...CORE_SERVICES
-  ],
-  exports: [
-    RouterModule,
-    ...CORE_COMPONENTS
   ]
 })
 export class CoreModule {

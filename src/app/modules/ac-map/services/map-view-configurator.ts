@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { ConfigService } from "../../app/services/config/config.service";
 
 @Injectable()
 export class MapViewConfigurator {
 
-  constructor() {
+  constructor(private configService: ConfigService) {
 
   }
 
@@ -12,18 +13,7 @@ export class MapViewConfigurator {
       imageryProvider: Cesium.createTileMapServiceImageryProvider({
         url: Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')
       }),
-      baseLayerPicker: false,
-      geocoder: false,
-      fullscreenButton: false,
-      homeButton: false,
-      infoBox: true,
-      sceneModePicker: false,
-      timeline: false,
-      selectionIndicator: false,
-      navigationHelpButton: false,
-      navigationInstructionsInitiallyVisible: false,
-      animation: false,
-      scene3DOnly: true,
+      ...this.configService.getConfig().map.cesium.viewerOptions
     };
   }
 }
