@@ -1,4 +1,6 @@
-# ground-zero
+# ground-zero 
+
+![Alt text](src/assets/images/gz-logo-big.png)
 
 Ground Zero provides a comparision between various GIS web libraries.
 
